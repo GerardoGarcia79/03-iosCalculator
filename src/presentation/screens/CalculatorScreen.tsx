@@ -1,10 +1,15 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Text, View} from 'react-native';
+import {globalStyles} from '../../config/theme/app-theme';
 
 export const CalculatorScreen = () => {
   return (
-    <View>
-      <Text>CalculatorScreen</Text>
+    <View style={globalStyles.calculatorContainer}>
+      <View style={{paddingHorizontal: 30, paddingVertical: 20}}>
+        <Text style={globalStyles.mainResult}>1500</Text>
+        <Text style={globalStyles.subResult}>15</Text>
+      </View>
     </View>
   );
 };
