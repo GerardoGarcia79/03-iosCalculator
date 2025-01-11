@@ -1,11 +1,22 @@
 /* eslint-disable curly */
-import {useState} from 'react';
+import {useRef, useState} from 'react';
+
+enum Operator {
+  add,
+  subtract,
+  multiply,
+  divide,
+}
 
 export const useCalculator = () => {
   const [number, setNumber] = useState('0');
+  const [prevNumber, setPrevNumber] = useState('0');
+
+  const lastOperation = useRef<Operator>();
 
   const clean = () => {
     setNumber('0');
+    setPrevNumber('0');
   };
 
   const deleteOperation = () => {
@@ -52,11 +63,46 @@ export const useCalculator = () => {
     setNumber(number + numberString);
   };
 
+  const setLastNumber = () => {
+    if (number.endsWith('.')) {
+      setPrevNumber(number.slice(0, -1));
+    } else {
+      setPrevNumber(number);
+    }
+
+    setNumber('0');
+  };
+
+  const divideOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operator.divide;
+  };
+
+  const multiplyOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operator.multiply;
+  };
+
+  const subtractOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operator.subtract;
+  };
+
+  const addOperation = () => {
+    setLastNumber();
+    lastOperation.current = Operator.add;
+  };
+
   return {
     number,
+    prevNumber,
     buildNumber,
     toggleSign,
     clean,
     deleteOperation,
+    divideOperation,
+    multiplyOperation,
+    subtractOperation,
+    addOperation,
   };
 };

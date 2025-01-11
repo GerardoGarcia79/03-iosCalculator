@@ -6,8 +6,18 @@ import {CalculatorButton} from '../components/CalculatorButton';
 import {useCalculator} from '../hooks/useCalculator';
 
 export const CalculatorScreen = () => {
-  const {number, buildNumber, toggleSign, clean, deleteOperation} =
-    useCalculator();
+  const {
+    number,
+    prevNumber,
+    buildNumber,
+    toggleSign,
+    clean,
+    deleteOperation,
+    divideOperation,
+    multiplyOperation,
+    subtractOperation,
+    addOperation,
+  } = useCalculator();
 
   return (
     <View style={globalStyles.calculatorContainer}>
@@ -18,7 +28,12 @@ export const CalculatorScreen = () => {
           style={globalStyles.mainResult}>
           {number}
         </Text>
-        <Text style={globalStyles.subResult}>15</Text>
+        <Text
+          adjustsFontSizeToFit
+          numberOfLines={1}
+          style={globalStyles.subResult}>
+          {prevNumber === '0' ? ' ' : prevNumber}
+        </Text>
       </View>
 
       <View style={globalStyles.row}>
@@ -41,8 +56,8 @@ export const CalculatorScreen = () => {
           blackText
         />
         <CalculatorButton
-          onPress={() => console.log('/')}
-          label={'/'}
+          onPress={divideOperation}
+          label={'÷'}
           color={colors.orange}
         />
       </View>
@@ -64,8 +79,8 @@ export const CalculatorScreen = () => {
           color={colors.darkGray}
         />
         <CalculatorButton
-          onPress={() => console.log('X')}
-          label={'X'}
+          onPress={multiplyOperation}
+          label={'x'}
           color={colors.orange}
         />
       </View>
@@ -87,7 +102,7 @@ export const CalculatorScreen = () => {
           color={colors.darkGray}
         />
         <CalculatorButton
-          onPress={() => console.log('-')}
+          onPress={subtractOperation}
           label={'-'}
           color={colors.orange}
         />
@@ -110,7 +125,7 @@ export const CalculatorScreen = () => {
           color={colors.darkGray}
         />
         <CalculatorButton
-          onPress={() => console.log('+')}
+          onPress={addOperation}
           label={'+'}
           color={colors.orange}
         />
