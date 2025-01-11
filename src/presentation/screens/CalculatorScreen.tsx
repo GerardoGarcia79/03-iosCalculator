@@ -7,8 +7,8 @@ import {useCalculator} from '../hooks/useCalculator';
 
 export const CalculatorScreen = () => {
   const {
-    number,
     prevNumber,
+    formula,
     buildNumber,
     toggleSign,
     clean,
@@ -27,14 +27,18 @@ export const CalculatorScreen = () => {
           adjustsFontSizeToFit
           numberOfLines={1}
           style={globalStyles.mainResult}>
-          {number}
+          {formula}
         </Text>
-        <Text
-          adjustsFontSizeToFit
-          numberOfLines={1}
-          style={globalStyles.subResult}>
-          {prevNumber === '0' ? ' ' : prevNumber}
-        </Text>
+        {formula === prevNumber ? (
+          <Text style={globalStyles.subResult} />
+        ) : (
+          <Text
+            adjustsFontSizeToFit
+            numberOfLines={1}
+            style={globalStyles.subResult}>
+            {prevNumber}
+          </Text>
+        )}
       </View>
 
       <View style={globalStyles.row}>
